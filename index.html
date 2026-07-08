@@ -8,51 +8,184 @@
 <style>
   :root { color-scheme: dark; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #14100c; color: #f8f1e1; font-family: Georgia, serif; padding: 24px 16px 60px; }
+  body { background: #14100c; color: #f8f1e1; font-family: Georgia, serif; padding: 24px 16px 80px; }
   h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
-  .stamp { font-family: ui-monospace, Consolas, monospace; font-size: .75rem; color: #9c8f7f; margin-bottom: 28px; }
-  .short { margin: 0 auto 36px; max-width: 420px; }
-  .short h2 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
-  .short .id { font-family: ui-monospace, Consolas, monospace; font-size: .68rem; color: #9c8f7f; margin-bottom: 8px; word-break: break-all; }
+  .stamp { font-family: ui-monospace, Consolas, monospace; font-size: .75rem; color: #9c8f7f; margin-bottom: 16px; }
+  .toolbar { max-width: 420px; margin: 0 auto 28px; display: flex; gap: 8px; }
+  .short { margin: 0 auto 40px; max-width: 420px; }
+  .short h2 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+  .short .id { font-family: ui-monospace, Consolas, monospace; font-size: .66rem; color: #9c8f7f; margin-bottom: 8px; word-break: break-all; }
   video { width: 100%; aspect-ratio: 9 / 16; background: #000; border-radius: 12px; display: block; }
+  .btns { display: flex; gap: 8px; margin-top: 8px; }
+  button, .dl {
+    font-family: ui-monospace, Consolas, monospace; font-size: .78rem; color: #f8f1e1;
+    background: #2a221c; border: 1px solid #4a3f36; border-radius: 8px;
+    padding: 8px 12px; cursor: pointer; text-decoration: none; text-align: center; flex: 1;
+  }
+  button:active, .dl:active { background: #4a3f36; }
+  .btn-note { border-color: #1f7fa8; }
+  .btn-done { border-color: #6a8f5f; }
+  .notes { margin-top: 8px; }
+  .note { font-size: .82rem; color: #e4d9c4; background: #1d1712; border: 1px solid #2a221c;
+          border-radius: 8px; padding: 8px 10px; margin-top: 6px; display: flex; gap: 8px; align-items: baseline; }
+  .note .t { font-family: ui-monospace, Consolas, monospace; color: #f69679; white-space: nowrap; cursor: pointer; }
+  .note .x { margin-left: auto; color: #9c8f7f; cursor: pointer; font-family: ui-monospace, Consolas, monospace; padding-left: 8px; }
+  .hiddenbar { max-width: 420px; margin: 0 auto; font-family: ui-monospace, Consolas, monospace;
+               font-size: .78rem; color: #9c8f7f; text-align: center; }
+  .hiddenbar span { text-decoration: underline; cursor: pointer; }
+  .short.done-hidden { display: none; }
+  body.show-hidden .short.done-hidden { display: block; opacity: .55; }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+           background: #1f7fa8; color: #fff; padding: 10px 18px; border-radius: 10px;
+           font-family: ui-monospace, Consolas, monospace; font-size: .8rem; opacity: 0; transition: opacity .25s; pointer-events: none; }
+  .toast.on { opacity: 1; }
 </style>
 </head>
 <body>
 <h1>Shorts Review</h1>
-<p class="stamp">batches 1&ndash;3 &middot; 11 of 11 &middot; updated 2026-07-07 (re-render: Review Queue Folder / Stop Building Apps, Build the Factory / Lecture Notetaker &mdash; persistent-canvas movement rebuild per Don's 2026-07-05 batch review)</p>
+<p class="stamp">11 of 11 &middot; persistent-canvas cuts &middot; updated 2026-07-07</p>
+<div class="toolbar"><button id="copyNotes">Copy review notes</button></div>
 
-<div class="short"><h2>1. Folder as State</h2><p class="id">2026-07-04-folder-as-state</p>
+<div class="short" data-id="2026-07-04-folder-as-state"><h2>1. Folder as State</h2><p class="id">2026-07-04-folder-as-state</p>
 <video controls playsinline preload="metadata" src="2026-07-04-folder-as-state.mp4"></video></div>
 
-<div class="short"><h2>2. Local Transcriber</h2><p class="id">2026-07-04-local-transcriber</p>
+<div class="short" data-id="2026-07-04-local-transcriber"><h2>2. Local Transcriber</h2><p class="id">2026-07-04-local-transcriber</p>
 <video controls playsinline preload="metadata" src="2026-07-04-local-transcriber.mp4"></video></div>
 
-<div class="short"><h2>3. AI Invents Labels</h2><p class="id">2026-07-04-ai-invents-labels</p>
+<div class="short" data-id="2026-07-04-ai-invents-labels"><h2>3. AI Invents Labels</h2><p class="id">2026-07-04-ai-invents-labels</p>
 <video controls playsinline preload="metadata" src="2026-07-04-ai-invents-labels.mp4"></video></div>
 
-<div class="short"><h2>4. Review Queue Folder</h2><p class="id">session-1d7a56e0-review-queue-folder</p>
+<div class="short" data-id="session-1d7a56e0-230e-4913-9c67-95eef874fc55-review-queue-folder"><h2>4. Review Queue Folder</h2><p class="id">session-1d7a56e0-review-queue-folder</p>
 <video controls playsinline preload="metadata" src="session-1d7a56e0-230e-4913-9c67-95eef874fc55-review-queue-folder.mp4"></video></div>
 
-<div class="short"><h2>5. Stop Building Apps, Build the Factory</h2><p class="id">weekly-2026-06-20-stop-building-apps-build-the-factory</p>
+<div class="short" data-id="weekly-2026-06-20-stop-building-apps-build-the-factory"><h2>5. Stop Building Apps, Build the Factory</h2><p class="id">weekly-2026-06-20-stop-building-apps-build-the-factory</p>
 <video controls playsinline preload="metadata" src="weekly-2026-06-20-stop-building-apps-build-the-factory.mp4"></video></div>
 
-<div class="short"><h2>6. Lecture Notetaker</h2><p class="id">2026-06-24-lecture-notetaker-record-to-study-notes</p>
+<div class="short" data-id="2026-06-24-lecture-notetaker-record-to-study-notes"><h2>6. Lecture Notetaker</h2><p class="id">2026-06-24-lecture-notetaker-record-to-study-notes</p>
 <video controls playsinline preload="metadata" src="2026-06-24-lecture-notetaker-record-to-study-notes.mp4"></video></div>
 
-<div class="short"><h2>7. Nudge: Act on Approval</h2><p class="id">memory-project_factory_overseer-nudge-act-on-approval</p>
+<div class="short" data-id="memory-project_factory_overseer-nudge-act-on-approval"><h2>7. Nudge: Act on Approval</h2><p class="id">memory-project_factory_overseer-nudge-act-on-approval</p>
 <video controls playsinline preload="metadata" src="memory-project_factory_overseer-nudge-act-on-approval.mp4"></video></div>
 
-<div class="short"><h2>8. Hollow Exit Zero</h2><p class="id">session-36ca4133-hollow-exit-zero</p>
+<div class="short" data-id="session-36ca4133-hollow-exit-zero"><h2>8. Hollow Exit Zero</h2><p class="id">session-36ca4133-hollow-exit-zero</p>
 <video controls playsinline preload="metadata" src="session-36ca4133-hollow-exit-zero.mp4"></video></div>
 
-<div class="short"><h2>9. Flyer-Aware Grocery Planner</h2><p class="id">memory-project_weekly_grocery_planner-flyer-aware-planner</p>
+<div class="short" data-id="memory-project_weekly_grocery_planner-flyer-aware-planner"><h2>9. Flyer-Aware Grocery Planner</h2><p class="id">memory-project_weekly_grocery_planner-flyer-aware-planner</p>
 <video controls playsinline preload="metadata" src="memory-project_weekly_grocery_planner-flyer-aware-planner.mp4"></video></div>
 
-<div class="short"><h2>10. Platform UI Eats Your Video</h2><p class="id">session-a592d98f-platform-ui-eats-your-video</p>
+<div class="short" data-id="session-a592d98f-platform-ui-eats-your-video"><h2>10. Platform UI Eats Your Video</h2><p class="id">session-a592d98f-platform-ui-eats-your-video</p>
 <video controls playsinline preload="metadata" src="session-a592d98f-platform-ui-eats-your-video.mp4"></video></div>
 
-<div class="short"><h2>11. How My Content Engine Works</h2><p class="id">2026-06-18-how-my-content-engine-works</p>
+<div class="short" data-id="2026-06-18-how-my-content-engine-works"><h2>11. How My Content Engine Works</h2><p class="id">2026-06-18-how-my-content-engine-works</p>
 <video controls playsinline preload="metadata" src="2026-06-18-how-my-content-engine-works.mp4"></video></div>
 
+<p class="hiddenbar" id="hiddenbar"></p>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  var NOTES_KEY = "sr-notes", HIDE_KEY = "sr-hidden";
+  function load(k) { try { return JSON.parse(localStorage.getItem(k)) || []; } catch (e) { return []; } }
+  function save(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+  function mmss(t) { var m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ":" + (s < 10 ? "0" : "") + s; }
+  function toast(msg) {
+    var el = document.getElementById("toast"); el.textContent = msg; el.classList.add("on");
+    setTimeout(function () { el.classList.remove("on"); }, 1600);
+  }
+
+  var cards = [].slice.call(document.querySelectorAll(".short"));
+
+  function renderNotes(card) {
+    var id = card.getAttribute("data-id");
+    var box = card.querySelector(".notes");
+    if (!box) { box = document.createElement("div"); box.className = "notes"; card.appendChild(box); }
+    box.innerHTML = "";
+    var all = load(NOTES_KEY);
+    all.forEach(function (n, i) {
+      if (n.id !== id) return;
+      var d = document.createElement("div"); d.className = "note";
+      var t = document.createElement("span"); t.className = "t"; t.textContent = n.t;
+      t.onclick = function () {
+        var p = n.t.split(":"); var v = card.querySelector("video");
+        v.currentTime = (+p[0]) * 60 + (+p[1]); v.play();
+      };
+      var txt = document.createElement("span"); txt.textContent = n.text;
+      var x = document.createElement("span"); x.className = "x"; x.textContent = "×";
+      x.onclick = function () {
+        var cur = load(NOTES_KEY);
+        var idx = cur.findIndex(function (m) { return m.id === n.id && m.t === n.t && m.text === n.text; });
+        if (idx >= 0) { cur.splice(idx, 1); save(NOTES_KEY, cur); }
+        renderNotes(card);
+      };
+      d.appendChild(t); d.appendChild(txt); d.appendChild(x); box.appendChild(d);
+    });
+  }
+
+  function applyHidden() {
+    var hidden = load(HIDE_KEY);
+    cards.forEach(function (c) { c.classList.toggle("done-hidden", hidden.indexOf(c.getAttribute("data-id")) >= 0); });
+    var bar = document.getElementById("hiddenbar");
+    bar.innerHTML = hidden.length
+      ? hidden.length + " marked done · <span id='togglehidden'>" + (document.body.classList.contains("show-hidden") ? "hide" : "show") + "</span>"
+      : "";
+    var tog = document.getElementById("togglehidden");
+    if (tog) tog.onclick = function () { document.body.classList.toggle("show-hidden"); applyHidden(); };
+  }
+
+  cards.forEach(function (card) {
+    var id = card.getAttribute("data-id");
+    var video = card.querySelector("video");
+    var src = video.getAttribute("src");
+    var row = document.createElement("div"); row.className = "btns";
+
+    var noteBtn = document.createElement("button"); noteBtn.className = "btn-note"; noteBtn.textContent = "Note @ time";
+    noteBtn.onclick = function () {
+      video.pause();
+      var t = mmss(video.currentTime);
+      var text = prompt("Note at " + t + ":");
+      if (!text || !text.trim()) return;
+      var all = load(NOTES_KEY); all.push({ id: id, t: t, text: text.trim() }); save(NOTES_KEY, all);
+      renderNotes(card); toast("Noted @ " + t);
+    };
+
+    var dl = document.createElement("a"); dl.className = "dl"; dl.textContent = "Download";
+    dl.href = src; dl.setAttribute("download", src);
+
+    var doneBtn = document.createElement("button"); doneBtn.className = "btn-done";
+    function setDoneLabel() { doneBtn.textContent = load(HIDE_KEY).indexOf(id) >= 0 ? "Restore" : "Done ✓"; }
+    doneBtn.onclick = function () {
+      var hidden = load(HIDE_KEY); var i = hidden.indexOf(id);
+      if (i >= 0) hidden.splice(i, 1); else hidden.push(id);
+      save(HIDE_KEY, hidden); setDoneLabel(); applyHidden();
+    };
+    setDoneLabel();
+
+    row.appendChild(noteBtn); row.appendChild(dl); row.appendChild(doneBtn);
+    video.insertAdjacentElement("afterend", row);
+    renderNotes(card);
+  });
+
+  applyHidden();
+
+  document.getElementById("copyNotes").onclick = function () {
+    var notes = load(NOTES_KEY), hidden = load(HIDE_KEY), out = "# Shorts review notes\n";
+    cards.forEach(function (c) {
+      var id = c.getAttribute("data-id");
+      var mine = notes.filter(function (n) { return n.id === id; });
+      if (!mine.length) return;
+      out += "\n## " + c.querySelector("h2").textContent + " (" + id + ")\n";
+      mine.forEach(function (n) { out += "- [" + n.t + "] " + n.text + "\n"; });
+    });
+    if (hidden.length) out += "\nMarked done: " + hidden.join(", ") + "\n";
+    if (out === "# Shorts review notes\n") { toast("No notes yet"); return; }
+    function done() { toast("Copied — paste to Claude"); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(out).then(done, function () { toast("Copy failed — screenshot instead"); }); }
+    else {
+      var ta = document.createElement("textarea"); ta.value = out; document.body.appendChild(ta);
+      ta.select(); document.execCommand("copy"); document.body.removeChild(ta); done();
+    }
+  };
+})();
+</script>
 </body>
 </html>
