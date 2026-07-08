@@ -168,7 +168,11 @@
   applyHidden();
 
   document.getElementById("copyNotes").onclick = function () {
-    var notes = load(NOTES_KEY), hidden = load(HIDE_KEY), out = "# Shorts review notes\n";
+    var notes = load(NOTES_KEY), hidden = load(HIDE_KEY),
+        out = "# Shorts review notes\n" +
+              "(For the agent: process in the animation-station live system at " +
+              "Don's Factory/03_deployment/01_live-systems/animation-station - " +
+              "follow System/runbooks/process-review-notes.md)\n";
     cards.forEach(function (c) {
       var id = c.getAttribute("data-id");
       var mine = notes.filter(function (n) { return n.id === id; });
@@ -177,7 +181,7 @@
       mine.forEach(function (n) { out += "- [" + n.t + "] " + n.text + "\n"; });
     });
     if (hidden.length) out += "\nMarked done: " + hidden.join(", ") + "\n";
-    if (out === "# Shorts review notes\n") { toast("No notes yet"); return; }
+    if (out.indexOf("##") < 0 && !hidden.length) { toast("No notes yet"); return; }
     function done() { toast("Copied — paste to Claude"); }
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(out).then(done, function () { toast("Copy failed — screenshot instead"); }); }
     else {
